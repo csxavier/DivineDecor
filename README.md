@@ -10,7 +10,7 @@
 >> * [Amazon]()
 
 ## This is for starting up our first business.
-> * [Decorations](https://csxavier.github.io/Business1/business1.html)
+> * [Decorations](https://csxavier.github.io/Business1/business_1.html)
 > * [Carpets]()
 
 
