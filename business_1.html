@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Radhey Krishna Decoratives</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Marcellus&family=Mukta:wght@300;400;500;600&display=swap" rel="stylesheet">
+	<style>
+	:root {
+		/* Radha Krishna palette: peacock teal, dusk indigo, marigold, lotus rose, ivory */
+		--peacock:   #0e6e6e;
+		--peacock-d: #084a4a;
+		--indigo:    #2b2150;
+		--indigo-d:  #1a1335;
+		--marigold:  #e9a227;
+		--marigold-l:#f6c95a;
+		--rose:      #c25a72;
+		--rose-l:    #e8b8c4;
+		--ivory:     #faf6ee;
+		--ivory-d:   #f0e8d8;
+		--ink:       #211a3a;
+		--ink-soft:  #5a5273;
+		--gold-line: #d9b366;
+		--shadow:    rgba(26, 19, 53, 0.14);
+	}
+
+	* { box-sizing: border-box; margin: 0; padding: 0; }
+
+	html { scroll-behavior: smooth; }
+
+	body {
+		background:
+			radial-gradient(circle at 12% 8%, rgba(233,162,39,0.10), transparent 38%),
+			radial-gradient(circle at 88% 4%, rgba(14,110,110,0.10), transparent 40%),
+			var(--ivory);
+		color: var(--ink);
+		font-family: 'Mukta', sans-serif;
+		font-weight: 300;
+		line-height: 1.6;
+		min-height: 100vh;
+		padding: 0 20px 80px;
+	}
+
+	.main { max-width: 1180px; margin: auto; }
+
+	/* ---------- HERO ---------- */
+	.hero {
+		text-align: center;
+		padding: 64px 16px 40px;
+		position: relative;
+	}
+	.peacock-feather {
+		display: block;
+		margin: 0 auto 18px;
+		width: 46px; height: 46px;
+	}
+	.eyebrow {
+		font-family: 'Mukta', sans-serif;
+		letter-spacing: 0.42em;
+		text-transform: uppercase;
+		font-size: 12px;
+		font-weight: 500;
+		color: var(--peacock);
+		margin-bottom: 14px;
+	}
+	.hero h1 {
+		font-family: 'Cormorant Garamond', serif;
+		font-weight: 600;
+		font-size: clamp(46px, 8vw, 86px);
+		line-height: 0.98;
+		color: var(--indigo);
+		letter-spacing: 0.5px;
+	}
+	.hero h1 .amp {
+		font-style: italic;
+		font-weight: 400;
+		color: var(--marigold);
+		padding: 0 4px;
+	}
+	.hero .subtitle {
+		font-family: 'Marcellus', serif;
+		font-size: clamp(15px, 2.4vw, 19px);
+		letter-spacing: 0.32em;
+		text-transform: uppercase;
+		color: var(--rose);
+		margin-top: 16px;
+	}
+	.divider {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 14px;
+		margin: 30px auto 0;
+		max-width: 320px;
+	}
+	.divider span {
+		height: 1px; flex: 1;
+		background: linear-gradient(to right, transparent, var(--gold-line), transparent);
+	}
+	.divider svg { width: 22px; height: 22px; color: var(--marigold); }
+
+	/* ---------- FILTER BAR ---------- */
+	.filter-wrap {
+		position: sticky;
+		top: 0;
+		z-index: 40;
+		padding: 18px 0 22px;
+		margin-bottom: 8px;
+		background: linear-gradient(to bottom, var(--ivory) 62%, transparent);
+	}
+	#myBtnContainer {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 10px;
+	}
+	.btn {
+		font-family: 'Marcellus', serif;
+		font-size: 15px;
+		letter-spacing: 0.08em;
+		border: 1px solid rgba(43,33,80,0.18);
+		background: rgba(255,255,255,0.7);
+		color: var(--indigo);
+		padding: 10px 22px;
+		border-radius: 999px;
+		cursor: pointer;
+		transition: all 0.28s ease;
+		backdrop-filter: blur(6px);
+	}
+	.btn:hover {
+		border-color: var(--peacock);
+		color: var(--peacock);
+		transform: translateY(-2px);
+	}
+	.btn.active {
+		background: linear-gradient(135deg, var(--peacock), var(--indigo));
+		color: var(--ivory);
+		border-color: transparent;
+		box-shadow: 0 8px 20px -6px rgba(14,110,110,0.5);
+	}
+
+	/* ---------- GRID ---------- */
+	.row {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 26px;
+	}
+	@media (max-width: 860px) { .row { grid-template-columns: repeat(2, 1fr); } }
+	@media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+
+	.column { display: none; }
+	.column.show {
+		display: block;
+		animation: rise 0.5s ease both;
+	}
+	@keyframes rise {
+		from { opacity: 0; transform: translateY(18px); }
+		to   { opacity: 1; transform: translateY(0); }
+	}
+
+	/* ---------- CARD (fixed height) ---------- */
+	.content {
+		background: #fff;
+		border-radius: 18px;
+		overflow: hidden;
+		height: 420px;                /* fixed card height */
+		display: flex;
+		flex-direction: column;
+		border: 1px solid rgba(217,179,102,0.35);
+		box-shadow: 0 10px 30px -16px var(--shadow);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+	.content:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 22px 44px -18px rgba(26,19,53,0.32);
+	}
+
+	.thumb {
+		position: relative;
+		height: 270px;                /* fixed image area */
+		flex: none;
+		overflow: hidden;
+		cursor: zoom-in;
+		background: linear-gradient(135deg, var(--ivory-d), #e6dcc4);
+	}
+	.thumb img {
+		width: 100%; height: 100%;
+		object-fit: cover;
+		display: block;
+		transition: transform 0.6s ease;
+	}
+	.content:hover .thumb img { transform: scale(1.06); }
+
+	/* graceful fallback when an image is missing */
+	.thumb::after {
+		content: "✦";
+		position: absolute; inset: 0;
+		display: flex; align-items: center; justify-content: center;
+		font-size: 40px; color: var(--gold-line);
+		opacity: 0; z-index: 0;
+	}
+	.thumb img[data-broken="1"] { opacity: 0; }
+	.thumb img[data-broken="1"] + .zoom-badge { display: none; }
+
+	.zoom-badge {
+		position: absolute;
+		top: 12px; right: 12px;
+		width: 34px; height: 34px;
+		border-radius: 50%;
+		background: rgba(43,33,80,0.55);
+		color: #fff;
+		display: flex; align-items: center; justify-content: center;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+		z-index: 2;
+	}
+	.thumb:hover .zoom-badge { opacity: 1; }
+	.zoom-badge svg { width: 16px; height: 16px; }
+
+	.card-body {
+		padding: 16px 18px 18px;
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		min-height: 0;
+	}
+	.card-body h4 {
+		font-family: 'Cormorant Garamond', serif;
+		font-weight: 600;
+		font-size: 21px;
+		line-height: 1.18;
+		color: var(--indigo);
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	.card-body .price {
+		margin-top: auto;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 4px;
+		font-family: 'Marcellus', serif;
+		color: var(--peacock-d);
+		font-size: 17px;
+	}
+	.card-body .price .rs {
+		font-size: 12px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--rose);
+	}
+	.tag {
+		align-self: flex-start;
+		font-family: 'Mukta', sans-serif;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--marigold);
+		margin-bottom: 8px;
+	}
+
+	/* ---------- LIGHTBOX ---------- */
+	.lightbox {
+		position: fixed;
+		inset: 0;
+		z-index: 100;
+		background: rgba(20,14,42,0.86);
+		backdrop-filter: blur(8px);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		padding: 30px;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.3s ease;
+	}
+	.lightbox.open { opacity: 1; pointer-events: auto; }
+	.lightbox img {
+		max-width: min(90vw, 900px);
+		max-height: 76vh;
+		border-radius: 12px;
+		box-shadow: 0 30px 80px -20px rgba(0,0,0,0.7);
+		transform: scale(0.94);
+		transition: transform 0.35s ease;
+	}
+	.lightbox.open img { transform: scale(1); }
+	.lb-caption {
+		color: var(--ivory);
+		font-family: 'Cormorant Garamond', serif;
+		font-size: 24px;
+		margin-top: 18px;
+		text-align: center;
+	}
+	.lb-caption span {
+		display: block;
+		font-family: 'Marcellus', serif;
+		font-size: 15px;
+		color: var(--marigold-l);
+		letter-spacing: 0.1em;
+		margin-top: 4px;
+	}
+	.lb-close, .lb-nav {
+		position: absolute;
+		background: rgba(255,255,255,0.1);
+		border: 1px solid rgba(255,255,255,0.25);
+		color: #fff;
+		cursor: pointer;
+		border-radius: 50%;
+		display: flex; align-items: center; justify-content: center;
+		transition: background 0.25s ease, transform 0.25s ease;
+	}
+	.lb-close { top: 22px; right: 24px; width: 46px; height: 46px; }
+	.lb-nav   { top: 50%; transform: translateY(-50%); width: 52px; height: 52px; }
+	.lb-prev  { left: 24px; }
+	.lb-next  { right: 24px; }
+	.lb-close:hover, .lb-nav:hover { background: rgba(233,162,39,0.4); }
+	.lb-close svg, .lb-nav svg { width: 22px; height: 22px; }
+	@media (max-width: 560px) {
+		.lb-nav { width: 42px; height: 42px; }
+		.lb-prev { left: 10px; } .lb-next { right: 10px; }
+	}
+
+	/* ---------- WHATSAPP FLOATING BUTTON ---------- */
+	.wa-float {
+		position: fixed;
+		right: 24px;
+		bottom: 24px;
+		z-index: 60;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 12px 18px 12px 14px;
+		background: linear-gradient(135deg, #25d366, #128c7e);
+		color: #fff;
+		border-radius: 999px;
+		text-decoration: none;
+		font-family: 'Marcellus', serif;
+		font-size: 15px;
+		letter-spacing: 0.04em;
+		box-shadow: 0 12px 30px -10px rgba(18,140,126,0.7);
+		transition: transform 0.28s ease, box-shadow 0.28s ease;
+	}
+	.wa-float:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 18px 38px -10px rgba(18,140,126,0.8);
+	}
+	.wa-float svg { width: 26px; height: 26px; flex: none; }
+	.wa-float .wa-label { white-space: nowrap; }
+	/* pulse ring */
+	.wa-float::before {
+		content: "";
+		position: absolute;
+		left: 14px; top: 50%;
+		width: 40px; height: 40px;
+		transform: translateY(-50%);
+		border-radius: 50%;
+		background: #25d366;
+		z-index: -1;
+		animation: wa-pulse 2.4s ease-out infinite;
+	}
+	@keyframes wa-pulse {
+		0%   { transform: translateY(-50%) scale(0.7); opacity: 0.6; }
+		100% { transform: translateY(-50%) scale(1.7); opacity: 0; }
+	}
+	@media (max-width: 560px) {
+		.wa-float { padding: 14px; right: 16px; bottom: 16px; }
+		.wa-float .wa-label { display: none; }   /* icon only on small screens */
+		.wa-float::before { left: 50%; transform: translate(-50%, -50%); }
+		@keyframes wa-pulse {
+			0%   { transform: translate(-50%,-50%) scale(0.7); opacity: 0.6; }
+			100% { transform: translate(-50%,-50%) scale(1.7); opacity: 0; }
+		}
+	}
+
+	/* ---------- FOOTER ---------- */
+	footer {
+		text-align: center;
+		margin-top: 60px;
+		padding-top: 28px;
+		font-family: 'Marcellus', serif;
+		color: var(--ink-soft);
+		font-size: 14px;
+		letter-spacing: 0.16em;
+	}
+	footer .om { color: var(--marigold); font-size: 22px; display: block; margin-bottom: 8px; }
+
+	@media (prefers-reduced-motion: reduce) {
+		* { animation: none !important; transition: none !important; scroll-behavior: auto; }
+	}
+	</style>
+</head>
+
+<body>
+<div class="main">
+
+	<!-- HERO -->
+	<header class="hero">
+		<svg class="peacock-feather" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:var(--peacock)">
+			<path d="M12 2C7 4 5 9 7 14c1.5 3.5 4 6 5 8 1-2 3.5-4.5 5-8 2-5 0-10-5-12Z" stroke-width="1.3"/>
+			<circle cx="12" cy="9" r="2.6" fill="var(--indigo)" stroke="none"/>
+			<circle cx="12" cy="9" r="1.1" fill="var(--marigold)" stroke="none"/>
+		</svg>
+		<p class="eyebrow">Hare Krishna · Radhey Radhey</p>
+		<h1>Radhey <span class="amp">&amp;</span> Krishna<br>Decoratives</h1>
+		<p class="subtitle">Devotional Décor · Handcrafted with Bhakti</p>
+		<div class="divider">
+			<span></span>
+			<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.5L21 9l-5 4.2L17.5 21 12 17l-5.5 4L8 13.2 3 9l6.6-.5L12 2z"/></svg>
+			<span></span>
+		</div>
+	</header>
+
+	<!-- FILTER -->
+	<div class="filter-wrap">
+		<div id="myBtnContainer">
+			<button class="btn active" onclick="filterSelection('all')">All</button>
+			<button class="btn" onclick="filterSelection('Misc')">Misc</button>
+			<button class="btn" onclick="filterSelection('Calander')">Calendar</button>
+			<button class="btn" onclick="filterSelection('Stickers')">Stickers</button>
+			<button class="btn" onclick="filterSelection('Stands')">Stands</button>
+		</div>
+	</div>
+
+	<!-- GRID -->
+	<div class="row">
+
+		<!-- Misc -->
+		<div class="column Misc">
+			<div class="content">
+				<div class="thumb" data-src="Images/Aastha_Sakhi.jpg" data-title="Aastha Sakhi with RadhaRani" data-price="Rs 220">
+					<img src="Images/Aastha_Sakhi.jpg" alt="Aastha Sakhi with RadhaRani">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Misc</span>
+					<h4>Aastha Sakhi with RadhaRani</h4>
+					<p class="price"><span class="rs">Rs</span> 220</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Misc">
+			<div class="content">
+				<div class="thumb" data-src="Images/KeyChain1.jpg" data-title="Keychain RadhaKrishan" data-price="Rs 70">
+					<img src="Images/KeyChain1.jpg" alt="Keychain RadhaKrishan">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Misc</span>
+					<h4>Keychain RadhaKrishan</h4>
+					<p class="price"><span class="rs">Rs</span> 70</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Misc">
+			<div class="content">
+				<div class="thumb" data-src="Images/Keychain2.jpg" data-title="Keychain PremanandJi" data-price="Rs 80">
+					<img src="Images/Keychain2.jpg" alt="Keychain PremanandJi">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Misc</span>
+					<h4>Keychain PremanandJi</h4>
+					<p class="price"><span class="rs">Rs</span> 80</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Misc">
+			<div class="content">
+				<div class="thumb" data-src="Images/Bansi.jpg" data-title="Bansi" data-price="Rs 60 (per piece)">
+					<img src="Images/Bansi.jpg" alt="Bansi">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Misc</span>
+					<h4>Bansi (Flute)</h4>
+					<p class="price"><span class="rs">Rs</span> 60 <span class="rs" style="color:var(--ink-soft)">/ piece</span></p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Calander -->
+		<div class="column Calander">
+			<div class="content">
+				<div class="thumb" data-src="Images/Calender_HareKrishna_Cow.png" data-title="Calendar — HareKrishna Cow" data-price="Rs 220">
+					<img src="Images/Calender_HareKrishna_Cow.png" alt="Calendar HareKrishna Cow">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Calendar</span>
+					<h4>Calendar — HareKrishna Cow</h4>
+					<p class="price"><span class="rs">Rs</span> 220</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Calander">
+			<div class="content">
+				<div class="thumb" data-src="Images/Calander_Premanand_Big.jpg" data-title="Calendar — PremanandJi (Big)" data-price="Rs 180">
+					<img src="Images/Calander_Premanand_Big.jpg" alt="Calendar PremanandJi Big">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Calendar</span>
+					<h4>Calendar — PremanandJi (Big)</h4>
+					<p class="price"><span class="rs">Rs</span> 180</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Calander">
+			<div class="content">
+				<div class="thumb" data-src="Images/Calander_Premanand_Small.jpg" data-title="Calendar — PremanandJi (Small)" data-price="Rs 120">
+					<img src="Images/Calander_Premanand_Small.jpg" alt="Calendar PremanandJi Small">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Calendar</span>
+					<h4>Calendar — PremanandJi (Small)</h4>
+					<p class="price"><span class="rs">Rs</span> 120</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Calander">
+			<div class="content">
+				<div class="thumb" data-src="Images/Calander_Jhula.jpg" data-title="Calendar — Radhey Krishna Jhula" data-price="Rs 120">
+					<img src="Images/Calander_Jhula.jpg" alt="Calendar Radhey Krishna Jhula">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Calendar</span>
+					<h4>Calendar — Radhey Krishna Jhula</h4>
+					<p class="price"><span class="rs">Rs</span> 120</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Calander">
+			<div class="content">
+				<div class="thumb" data-src="Images/Calander_Raj.jpg" data-title="Calendar — Raj" data-price="Rs 100">
+					<img src="Images/Calander_Raj.jpg" alt="Calendar Raj">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Calendar</span>
+					<h4>Calendar — Raj</h4>
+					<p class="price"><span class="rs">Rs</span> 100</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Calander">
+			<div class="content">
+				<div class="thumb" data-src="Images/Calander_Rasoi.jpg" data-title="Calendar — Rasoi" data-price="Rs 100">
+					<img src="Images/Calander_Rasoi.jpg" alt="Calendar Rasoi">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Calendar</span>
+					<h4>Calendar — Rasoi</h4>
+					<p class="price"><span class="rs">Rs</span> 100</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Stickers -->
+		<div class="column Stickers">
+			<div class="content">
+				<div class="thumb" data-src="Images/Sticker_ShreeRadha.jpg" data-title="Shree Radha (Wall)" data-price="Rs 50">
+					<img src="Images/Sticker_ShreeRadha.jpg" alt="Shree Radha Wall">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Sticker</span>
+					<h4>Shree Radha (Wall)</h4>
+					<p class="price"><span class="rs">Rs</span> 50</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Stickers">
+			<div class="content">
+				<div class="thumb" data-src="Images/Sticker_ShreeRadha1.jpg" data-title="Shree Radhey — Premanand Ji (Hanging)" data-price="Rs 60">
+					<img src="Images/Sticker_ShreeRadha1.jpg" alt="Shree Radhey Premanand Ji Hanging">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Sticker</span>
+					<h4>Shree Radhey — Premanand Ji (Hanging)</h4>
+					<p class="price"><span class="rs">Rs</span> 60</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Stickers">
+			<div class="content">
+				<div class="thumb" data-src="Images/Sticker_ShreeRadha2.jpg" data-title="Shree Radhey — Radhey Krishna (Hanging)" data-price="Rs 60">
+					<img src="Images/Sticker_ShreeRadha2.jpg" alt="Shree Radhey Radhey Krishna Hanging">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Sticker</span>
+					<h4>Shree Radhey — Radhey Krishna (Hanging)</h4>
+					<p class="price"><span class="rs">Rs</span> 60</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Stands -->
+		<div class="column Stands">
+			<div class="content">
+				<div class="thumb" data-src="Images/Stand_Bansi.jpg" data-title="Stand — Bansi and Peacock" data-price="Rs 60">
+					<img src="Images/Stand_Bansi.jpg" alt="Stand Bansi and Peacock">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Stand</span>
+					<h4>Stand — Bansi and Peacock</h4>
+					<p class="price"><span class="rs">Rs</span> 60</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Stands">
+			<div class="content">
+				<div class="thumb" data-src="Images/Stand_RadheyKrishna.jpg" data-title="Stand — Radhey Krishna" data-price="Rs 60">
+					<img src="Images/Stand_RadheyKrishna.jpg" alt="Stand Radhey Krishna">
+					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
+				</div>
+				<div class="card-body">
+					<span class="tag">Stand</span>
+					<h4>Stand — Radhey Krishna</h4>
+					<p class="price"><span class="rs">Rs</span> 60</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<footer>
+		<span class="om">ॐ</span>
+		Radhey Krishna Decoratives · Made with devotion
+	</footer>
+</div>
+
+<!-- WHATSAPP CONTACT -->
+<a class="wa-float" href="https://wa.me/7875555711?text=Hello" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">
+	<svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.821 9.821 0 001.519 5.26l-.999 3.648 3.97-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+	<span class="wa-label">Contact on WhatsApp</span>
+</a>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+	<button class="lb-close" id="lbClose" aria-label="Close">
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+	</button>
+	<button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg>
+	</button>
+	<button class="lb-nav lb-next" id="lbNext" aria-label="Next">
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
+	</button>
+	<img id="lbImg" src="" alt="">
+	<div class="lb-caption"><span id="lbTitle"></span><span id="lbPrice" style="color:var(--marigold-l)"></span></div>
+</div>
+
+<script>
+/* ---------- Filtering ---------- */
+function filterSelection(c) {
+	var x = document.getElementsByClassName("column");
+	if (c === "all") c = "";
+	for (var i = 0; i < x.length; i++) {
+		x[i].classList.remove("show");
+		if (x[i].className.indexOf(c) > -1) x[i].classList.add("show");
+	}
+	buildVisibleList();
+}
+filterSelection("all");
+
+/* Active button highlight */
+var btnContainer = document.getElementById("myBtnContainer");
+var btns = btnContainer.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+	btns[i].addEventListener("click", function () {
+		var current = document.getElementsByClassName("active");
+		if (current[0]) current[0].className = current[0].className.replace(" active", "");
+		this.className += " active";
+	});
+}
+
+/* ---------- Broken-image fallback ---------- */
+document.querySelectorAll(".thumb img").forEach(function (img) {
+	img.addEventListener("error", function () { img.setAttribute("data-broken", "1"); });
+});
+
+/* ---------- Lightbox ---------- */
+var lb = document.getElementById("lightbox");
+var lbImg = document.getElementById("lbImg");
+var lbTitle = document.getElementById("lbTitle");
+var lbPrice = document.getElementById("lbPrice");
+var visible = [];   // currently shown thumbs
+var current = 0;
+
+function buildVisibleList() {
+	visible = Array.prototype.filter.call(
+		document.querySelectorAll(".column .thumb"),
+		function (t) { return t.closest(".column").classList.contains("show"); }
+	);
+}
+
+function openLightbox(thumb) {
+	buildVisibleList();
+	current = visible.indexOf(thumb);
+	showCurrent();
+	lb.classList.add("open");
+	document.body.style.overflow = "hidden";
+}
+function showCurrent() {
+	var t = visible[current];
+	if (!t) return;
+	lbImg.src = t.dataset.src;
+	lbImg.alt = t.dataset.title;
+	lbTitle.textContent = t.dataset.title;
+	lbPrice.textContent = t.dataset.price;
+}
+function closeLightbox() {
+	lb.classList.remove("open");
+	document.body.style.overflow = "";
+}
+function step(d) {
+	if (!visible.length) return;
+	current = (current + d + visible.length) % visible.length;
+	showCurrent();
+}
+
+document.querySelectorAll(".thumb").forEach(function (t) {
+	t.addEventListener("click", function () { openLightbox(t); });
+});
+document.getElementById("lbClose").addEventListener("click", closeLightbox);
+document.getElementById("lbPrev").addEventListener("click", function () { step(-1); });
+document.getElementById("lbNext").addEventListener("click", function () { step(1); });
+lb.addEventListener("click", function (e) { if (e.target === lb) closeLightbox(); });
+document.addEventListener("keydown", function (e) {
+	if (!lb.classList.contains("open")) return;
+	if (e.key === "Escape") closeLightbox();
+	if (e.key === "ArrowRight") step(1);
+	if (e.key === "ArrowLeft") step(-1);
+});
+</script>
+
+</body>
+</html>
