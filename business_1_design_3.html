@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Radhey Krishna Decoratives</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: system-ui;
+                background: linear-gradient(135deg, #fff7ef, #fde8f6);
+                padding: 32px;
+            }
+            .main {
+                max-width: 1400px;
+                margin: auto;
+            }
+            .hero {
+                padding: 40px;
+                border-radius: 28px;
+                text-align: center;
+                background: #fff7;
+                backdrop-filter: blur(10px);
+            }
+            h1 {
+                color: #7b4ba3;
+            }
+            #filters {
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+                justify-content: center;
+                margin: 25px 0;
+            }
+            button {
+                border: 0;
+                padding: 12px 18px;
+                border-radius: 999px;
+            }
+            button.active {
+                background: #7b4ba3;
+                color: #fff;
+            }
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            .card {
+                display: none;
+                background: #fff;
+                border-radius: 24px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px #0001;
+            }
+            .show {
+                display: block;
+            }
+            img {
+                width: 100%;
+                height: 260px;
+                object-fit: cover;
+                cursor: pointer;
+            }
+            .body {
+                padding: 16px;
+                min-height: 140px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .lightbox {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: #000d;
+                align-items: center;
+                justify-content: center;
+            }
+            .lightbox img {
+                max-width: 92vw;
+                max-height: 92vh;
+                width: auto;
+                height: auto;
+                object-fit: contain;
+                border-radius: 18px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+            }
+            .close {
+                position: absolute;
+                right: 24px;
+                top: 12px;
+                color: white;
+                font-size: 40px;
+                cursor: pointer;
+            }
+            .wa-float {
+                position: fixed;
+                right: 22px;
+                bottom: 22px;
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                background: linear-gradient(135deg, #25d366, #0ea64b);
+                color: white;
+                font-size: 32px;
+                box-shadow: 0 14px 35px rgba(37, 211, 102, 0.35);
+                z-index: 999;
+                transition: 0.25s;
+            }
+            .wa-float:hover {
+                transform: translateY(-4px) scale(1.05);
+            }
+            body::before {
+                content: "";
+                position: fixed;
+                inset: -20%;
+                background: radial-gradient(circle at 20% 20%, rgba(255, 215, 120, 0.25), transparent 35%),
+                    radial-gradient(circle at 80% 30%, rgba(123, 75, 163, 0.18), transparent 35%),
+                    radial-gradient(circle at 50% 80%, rgba(255, 140, 180, 0.18), transparent 35%);
+                animation: floatBg 18s ease-in-out infinite;
+                pointer-events: none;
+            }
+            @keyframes floatBg {
+                0%,
+                100% {
+                    transform: translate(0, 0) scale(1);
+                }
+                50% {
+                    transform: translate(0, -25px) scale(1.05);
+                }
+            }
+            .hero {
+                animation: heroFloat 8s ease-in-out infinite;
+            }
+            @keyframes heroFloat {
+                50% {
+                    transform: translateY(-8px);
+                }
+            }
+            .card {
+                transition: 0.45s ease !important;
+            }
+            .card:hover {
+                transform: translateY(-10px) scale(1.02) !important;
+            }
+            .card img {
+                transition: 0.7s;
+            }
+            .card:hover img {
+                transform: scale(1.06);
+            }
+            button {
+                transition: 0.35s;
+            }
+            .active {
+                box-shadow: 0 10px 25px rgba(123, 75, 163, 0.25);
+            }
+            .wa-float {
+                animation: pulse 2.5s infinite;
+            }
+            @keyframes pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55);
+                }
+                70% {
+                    box-shadow: 0 0 0 18px rgba(37, 211, 102, 0);
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <div class="hero">
+                <h1>🪷 Radhey Krishna Decoratives</h1>
+                <p>Modern Radha–Krishna inspired showcase</p>
+            </div>
+            <div id="filters"></div>
+            <div class="grid" id="grid"></div>
+        </div>
+        <div class="lightbox" id="lightbox">
+            <div class="close">×</div>
+            <img id="lb" />
+        </div>
+        <script>
+            const products = [
+                { cat: "Misc", src: "Images/Aastha_Sakhi.jpg", title: "Aastha Sakhi with RadhaRani", price: "Rs 220" },
+                { cat: "Misc", src: "Images/KeyChain1", title: "Keychain RadhaKrishan", price: "Rs 70" },
+                { cat: "Misc", src: "Images/Keychain2.jpg", title: "Keychain PremanandJi", price: "Rs 80" },
+                { cat: "Misc", src: "Images/Bansi.jpg", title: "Bansi", price: "Rs 60 (per piece)" },
+                {
+                    cat: "Calander",
+                    src: "Images/Calender_HareKrishna_Cow.png",
+                    title: "Calender HareKrishna Cow",
+                    price: "Rs 220/-",
+                },
+                {
+                    cat: "Calander",
+                    src: "Images/Calander_Premanand_Big.jpg",
+                    title: "Calander PremanandJi Big",
+                    price: "Rs 180/-",
+                },
+                {
+                    cat: "Calander",
+                    src: "Images/Calander_Premanand_Small.jpg",
+                    title: "Calander PremanandJi Small",
+                    price: "Rs 120/-",
+                },
+                {
+                    cat: "Calander",
+                    src: "Images/Calander_Jhula.jpg",
+                    title: "Calander Radhey Krishna Jhula",
+                    price: "Rs 120/-",
+                },
+                { cat: "Calander", src: "Images/Calander_Raj.jpg", title: "Calander Raj", price: "Rs 100/-" },
+                { cat: "Calander", src: "Images/Calander_Rasoi.jpg", title: "Calander Rasoi", price: "Rs 100/-" },
+                { cat: "Stickers", src: "Images/Sticker_ShreeRadha.jpg", title: "Shree Radha (Wall)", price: "Rs 50" },
+                {
+                    cat: "Stickers",
+                    src: "Images/Sticker_ShreeRadha1.jpg",
+                    title: "Shree Radhey - Premanand Ji (Hanging)",
+                    price: "Rs 60",
+                },
+                {
+                    cat: "Stickers",
+                    src: "Images/Sticker_ShreeRadha2.jpg",
+                    title: "Shree Radhey - Radhey Krishna (Hanging)",
+                    price: "Rs 60",
+                },
+                { cat: "Stands", src: "Images/Stand_Bansi.jpg", title: "Stand - Bansi and Peacock", price: "Rs 60" },
+                {
+                    cat: "Stands",
+                    src: "Images/Stand_RadheyKrishna.jpg",
+                    title: "Stand - Radhey Krishna",
+                    price: "Rs 60",
+                },
+            ];
+            const cats = ["all", ...["Misc", "Calander", "Stickers", "Stands"]];
+            const f = document.getElementById("filters");
+            const g = document.getElementById("grid");
+            cats.forEach((c, i) => {
+                let b = document.createElement("button");
+                b.textContent = c;
+                b.className = i === 0 ? "active" : "";
+                b.onclick = () => filter(c, b);
+                f.appendChild(b);
+            });
+            products.forEach((p) =>
+                g.insertAdjacentHTML(
+                    "beforeend",
+                    `<div class='card show ${p.cat}'><img src='${p.src}'><div class='body'><h3>${p.title}</h3><strong>${p.price}</strong></div></div>`
+                )
+            );
+            function filter(cat, btn) {
+                document.querySelectorAll("button").forEach((x) => x.classList.remove("active"));
+                btn.classList.add("active");
+                document
+                    .querySelectorAll(".card")
+                    .forEach((c) => c.classList.toggle("show", cat === "all" || c.classList.contains(cat)));
+            }
+            document.addEventListener("click", (e) => {
+                if (e.target.tagName === "IMG" && e.target.parentElement.classList.contains("card")) {
+                    lightbox.style.display = "flex";
+                    lb.src = e.target.src;
+                }
+                if (e.target.className === "close" || e.target.id === "lightbox") lightbox.style.display = "none";
+            });
+        </script>
+
+        <a
+            class="wa-float"
+            href="https://wa.me/1234567890?text=Hello"
+            target="_blank"
+            title="Contact on WhatsApp"
+            aria-label="WhatsApp"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="32" height="32">
+                <path
+                    fill="white"
+                    d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-221.7 99.3-221.7 221.7 0 39.1 10.2 77.3 29.6 111L0 480l118.7-31.1c32.6 17.8 69.3 27.2 106.1 27.2h.1c122.3 0 223-99.3 223-221.7 0-59.3-23.1-115-67-157.3zM223.9 438c-33.4 0-66.1-8.9-94.8-25.7l-6.8-4-70.5 18.5 18.8-68.7-4.4-7.1c-18.5-29.4-28.2-63.4-28.2-98.3 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.5 19.2 130.3 54.1 34.8 34.8 54 81.1 54 130.3-.1 101.8-82.9 184.6-184.9 184.6zm101.7-138.4c-5.6-2.8-33.1-16.3-38.2-18.1-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.4 18.1-17.6 21.8-3.2 3.7-6.5 4.2-12.1 1.4-33-16.5-54.6-29.5-76.4-66.8-5.8-10 5.8-9.3 16.5-31 1.9-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.3-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.7-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.5 19-19.5 46.3s20 53.7 22.8 57.4c2.8 3.7 39.4 60.2 95.4 84.4 35.3 15.2 49.1 16.5 66.8 14 10.8-1.6 33.1-13.5 37.8-26.6 4.6-13 4.6-24.2 3.2-26.5-1.4-2.2-5.1-3.6-10.7-6.4z"
+                /></svg
+        ></a>
+    </body>
+</html>

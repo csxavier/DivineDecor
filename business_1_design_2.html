@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Radhey Krishna Decoratives</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Added FontAwesome for the WhatsApp Icon -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<style>
+	:root {
+		--primary-color: #0F4C81; /* Deep Peacock Blue */
+		--accent-color: #D4AF37;  /* Elegant Gold */
+		--bg-color: #FFFDF9;      /* Warm Cream */
+		--text-color: #2C3E50;    /* Dark Slate */
+		--saffron: #FF9933;       /* Saffron accent */
+		--whatsapp-color: #25D366; 
+	}
+
+	* {
+	  box-sizing: border-box;
+	  margin: 0;
+	  padding: 0;
+	}
+
+	body {
+	  background-color: var(--bg-color);
+	  color: var(--text-color);
+	  padding: 40px 20px;
+	  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	}
+
+	.main {
+	  max-width: 1100px;
+	  margin: auto;
+	}
+
+	header {
+		text-align: center;
+		margin-bottom: 40px;
+	}
+
+	h1 {
+	  font-size: 2.5rem;
+	  color: var(--primary-color);
+	  margin-bottom: 5px;
+	  font-weight: 700;
+	}
+
+	h2 {
+		font-size: 1.3rem;
+		color: var(--saffron);
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		margin-bottom: 20px;
+	}
+
+	hr {
+		border: 0;
+		height: 2px;
+		background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+		margin-bottom: 30px;
+	}
+
+	/* Beautiful Filter Container */
+	#myBtnContainer {
+		display: flex;
+		justify-content: center;
+		gap: 10px;
+		flex-wrap: wrap;
+		margin-bottom: 40px;
+	}
+
+	.btn {
+	  border: 2px solid var(--primary-color);
+	  outline: none;
+	  padding: 10px 20px;
+	  background-color: transparent;
+	  color: var(--primary-color);
+	  font-weight: 600;
+	  border-radius: 25px;
+	  cursor: pointer;
+	  transition: all 0.3s ease;
+	}
+
+	.btn:hover {
+	  background-color: var(--primary-color);
+	  color: white;
+	}
+
+	.btn.active {
+	  background-color: var(--primary-color);
+	  color: white;
+	  box-shadow: 0 4px 15px rgba(15, 76, 129, 0.3);
+	}
+
+	/* Fixed-height modern CSS Grid */
+	.row {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	  gap: 25px;
+	}
+
+	.column {
+	  display: none; /* Controlled via JS class */
+	  height: 100%;
+	}
+
+	.show {
+	  display: block;
+	}
+
+	/* Card Styling with Uniform Height */
+	.content {
+	  background-color: white;
+	  border-radius: 12px;
+	  overflow: hidden;
+	  height: 100%;
+	  display: flex;
+	  flex-direction: column;
+	  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+	  border-bottom: 4px solid var(--accent-color);
+	  transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.content:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+	}
+
+	/* Uniform Image Cropping */
+	.card-img-wrapper {
+		width: 100%;
+		height: 220px; 
+		overflow: hidden;
+		position: relative;
+		cursor: pointer;
+	}
+
+	.card-img-wrapper img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.5s ease;
+	}
+
+	.card-img-wrapper:hover img {
+		transform: scale(1.08);
+	}
+
+	/* Details area flex grow ensures price stays pinned to bottom */
+	.card-details {
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		justify-content: space-between;
+	}
+
+	.card-details h4 {
+	  font-size: 1.1rem;
+	  color: var(--text-color);
+	  margin-bottom: 10px;
+	  font-weight: 600;
+	  line-height: 1.4;
+	}
+
+	.card-details .price {
+	  color: var(--saffron);
+	  font-weight: 700;
+	  font-size: 1.1rem;
+	  margin-top: auto;
+	}
+
+	/* Lightbox Styling */
+	.lightbox {
+		display: none;
+		position: fixed;
+		z-index: 1000;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.85);
+		backdrop-filter: blur(5px);
+		justify-content: center;
+		align-items: center;
+	}
+
+	.lightbox-content {
+		max-width: 85%;
+		max-height: 85%;
+		border-radius: 4px;
+		box-shadow: 0 0 25px rgba(0,0,0,0.5);
+		border: 3px solid var(--accent-color);
+		transform: scale(0.9);
+		transition: transform 0.3s ease;
+	}
+
+	.lightbox.open .lightbox-content {
+		transform: scale(1);
+	}
+
+	.lightbox-close {
+		position: absolute;
+		top: 20px;
+		right: 30px;
+		color: #fff;
+		font-size: 40px;
+		font-weight: bold;
+		cursor: pointer;
+		transition: color 0.2s;
+	}
+
+	.lightbox-close:hover {
+		color: var(--accent-color);
+	}
+
+	/* Floating WhatsApp Button Styling */
+	.whatsapp-float {
+		position: fixed;
+		bottom: 30px;
+		right: 30px;
+		background-color: var(--whatsapp-color);
+		color: white;
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 30px;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+		z-index: 999;
+		text-decoration: none;
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+		border: 2px solid var(--accent-color);
+	}
+
+	.whatsapp-float:hover {
+		transform: scale(1.1);
+		box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+	}
+	</style>
+</head>
+
+<body>
+
+<div class="main">
+	<header>
+		<h1>My Business</h1>
+		<h2>Radhey Krishna Decoratives</h2>
+		<hr>
+	</header>
+
+	<div id="myBtnContainer">
+		<button class="btn active" onclick="filterSelection('all')">Show all</button>
+		<button class="btn" onclick="filterSelection('Misc')">Misc</button>
+		<button class="btn" onclick="filterSelection('Calander')">Calendar</button>
+		<button class="btn" onclick="filterSelection('Stickers')">Stickers</button>
+		<button class="btn" onclick="filterSelection('Stands')">Stands</button>
+	</div>
+
+	<!-- Portfolio Gallery Grid -->
+	<div class="row">
+		<!-- Misc Section -->
+		<div class="column Misc">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Aastha_Sakhi.jpg" alt="Aastha Sakhi">
+				</div>
+				<div class="card-details">
+					<h4>Aastha Sakhi with RadhaRani</h4>
+					<p class="price">Rs 220</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Misc">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/KeyChain1" alt="Keychain">
+				</div>
+				<div class="card-details">
+					<h4>Keychain RadhaKrishan</h4>
+					<p class="price">Rs 70</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Misc">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Keychain2.jpg" alt="Keychain">
+				</div>
+				<div class="card-details">
+					<h4>Keychain PremanandJi</h4>
+					<p class="price">Rs 80</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Misc">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Bansi.jpg" alt="Bansi">
+				</div>
+				<div class="card-details">
+					<h4>Bansi</h4>
+					<p class="price">Rs 60 <small>(per piece)</small></p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Calendar Section -->
+		<div class="column Calander">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Calender_HareKrishna_Cow.png" alt="Calendar">
+				</div>
+				<div class="card-details">
+					<h4>Calendar HareKrishna Cow</h4>
+					<p class="price">Rs 220/-</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Calander">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Calander_Premanand_Big.jpg" alt="Calendar PremanandJi">
+				</div>
+				<div class="card-details">
+					<h4>Calendar PremanandJi Big</h4>
+					<p class="price">Rs 180/-</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Calander">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Calander_Premanand_Small.jpg" alt="Calendar PremanandJi">
+				</div>
+				<div class="card-details">
+					<h4>Calendar PremanandJi Small</h4>
+					<p class="price">Rs 120/-</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Calander">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Calander_Jhula.jpg" alt="Calendar Jhula">
+				</div>
+				<div class="card-details">
+					<h4>Calendar Radhey Krishna Jhula</h4>
+					<p class="price">Rs 120/-</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Calander">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Calander_Raj.jpg" alt="Calendar Raj">
+				</div>
+				<div class="card-details">
+					<h4>Calendar Raj</h4>
+					<p class="price">Rs 100/-</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Calander">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Calander_Rasoi.jpg" alt="Calendar Rasoi">
+				</div>
+				<div class="card-details">
+					<h4>Calendar Rasoi</h4>
+					<p class="price">Rs 100/-</p>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Stickers Section -->		
+		<div class="column Stickers">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Sticker_ShreeRadha.jpg" alt="Shree Radha">
+				</div>
+				<div class="card-details">
+					<h4>Shree Radha (Wall)</h4>
+					<p class="price">Rs 50</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Stickers">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Sticker_ShreeRadha1.jpg" alt="Shree Radhey">
+				</div>
+				<div class="card-details">
+					<h4>Shree Radhey - Premanand Ji (Hanging)</h4>
+					<p class="price">Rs 60</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Stickers">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Sticker_ShreeRadha2.jpg" alt="Shree Radhey">
+				</div>
+				<div class="card-details">
+					<h4>Shree Radhey - Radhey Krishna (Hanging)</h4>
+					<p class="price">Rs 60</p>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Stands Section -->		
+		<div class="column Stands">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Stand_Bansi.jpg" alt="Bansi - Peacock">
+				</div>
+				<div class="card-details">
+					<h4>Stand - Bansi and Peacock</h4>
+					<p class="price">Rs 60</p>
+				</div>
+			</div>
+		</div>
+		<div class="column Stands">
+			<div class="content">
+				<div class="card-img-wrapper" onclick="openLightbox(this)">
+					<img src="Images/Stand_RadheyKrishna.jpg" alt="Radhey Krishna">
+				</div>
+				<div class="card-details">
+					<h4>Stand - Radhey Krishna</h4>
+					<p class="price">Rs 60</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Lightbox Modal Markup -->
+<div id="customLightbox" class="lightbox" onclick="closeLightbox()">
+	<span class="lightbox-close">&times;</span>
+	<img class="lightbox-content" id="lightboxImg" alt="Enlarged view">
+</div>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/1234567890?text=Hello" class="whatsapp-float" target="_blank" aria-label="Contact us on WhatsApp">
+	<i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+// Wait for DOM to completely load before initializing the filter gallery
+document.addEventListener("DOMContentLoaded", function() {
+	filterSelection("all");
+});
+
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("column");
+  if (c == "all") c = "";
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    // Make filter matching case-insensitive or clean to avoid missing matches
+    if (x[i].className.toLowerCase().indexOf(c.toLowerCase()) > -1) {
+    	w3AddClass(x[i], "show");
+    }
+  }
+}
+
+function w3AddClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+  }
+}
+
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);     
+    }
+  }
+  element.className = arr1.join(" ");
+}
+
+// Active button logic
+var btnContainer = document.getElementById("myBtnContainer");
+var btns = btnContainer.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function(){
+    var current = document.getElementsByClassName("active");
+    if(current.length > 0) {
+    	current[0].className = current[0].className.replace(" active", "");
+    }
+    this.className += " active";
+  });
+}
+
+// Lightbox Logic
+function openLightbox(element) {
+	var imgSrc = element.querySelector('img').src;
+	var lightbox = document.getElementById("customLightbox");
+	var lightboxImg = document.getElementById("lightboxImg");
+	
+	lightboxImg.src = imgSrc;
+	lightbox.style.display = "flex";
+	setTimeout(function() {
+		lightbox.classList.add('open');
+	}, 10);
+}
+
+function closeLightbox() {
+	var lightbox = document.getElementById("customLightbox");
+	lightbox.classList.remove('open');
+	setTimeout(function() {
+		lightbox.style.display = "none";
+	}, 300);
+}
+</script>
+
+</body>
+</html>
