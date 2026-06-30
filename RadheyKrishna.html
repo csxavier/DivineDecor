@@ -101,45 +101,232 @@
 	}
 	.divider svg { width: 22px; height: 22px; color: var(--marigold); }
 
-	/* ---------- FILTER BAR ---------- */
+	/* ---------- FILTER BAR (Radha–Krishna themed) ---------- */
 	.filter-wrap {
 		position: sticky;
 		top: 0;
 		z-index: 40;
-		padding: 18px 0 22px;
+		padding: 16px 0 20px;
 		margin-bottom: 8px;
-		background: linear-gradient(to bottom, var(--ivory) 62%, transparent);
-		border-radius: 25px;
+		/* background: linear-gradient(to bottom, var(--ivory) 10%, transparent); */
+		border-top-left-radius: 18px;
+    	border-top-right-radius: 18px;
 	}
 	#myBtnContainer {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		gap: 10px;
+		align-items: center;
+		gap: 12px;
+		position: relative;
+		max-width: max-content;
+		margin: 0 auto;
+		padding: 14px 26px;
+		border-radius: 999px;
+		/* soft ivory glass panel with a peacock/marigold wash */
+		background:
+			radial-gradient(circle at 0% 50%, rgba(233,162,39,0.12), transparent 60%),
+			radial-gradient(circle at 100% 50%, rgba(14,110,110,0.12), transparent 60%),
+			rgba(255,255,255,0.72);
+		border: 1px solid rgba(217,179,102,0.55);
+		box-shadow:
+			0 10px 30px -16px rgba(26,19,53,0.30),
+			inset 0 0 0 1px rgba(255,255,255,0.5);
+		backdrop-filter: blur(8px);
 	}
+	/* little peacock-feather flourishes at each end of the bar */
+	#myBtnContainer::before,
+	#myBtnContainer::after {
+		content: "";
+		width: 13px; height: 13px;
+		border-radius: 50%;
+		flex: none;
+		background:
+			radial-gradient(circle at 50% 50%, var(--marigold) 0 28%, var(--indigo) 30% 56%, var(--peacock) 58% 100%);
+		box-shadow: 0 0 0 2px rgba(255,255,255,0.7), 0 2px 6px rgba(14,110,110,0.4);
+		opacity: 0.9;
+	}
+
 	.btn {
 		font-family: 'Marcellus', serif;
 		font-size: 15px;
 		letter-spacing: 0.08em;
-		border: 1px solid rgba(43,33,80,0.18);
-		background: rgba(255,255,255,0.7);
+		border: 1px solid rgba(43,33,80,0.16);
+		background: rgba(255,255,255,0.6);
 		color: var(--indigo);
-		padding: 10px 22px;
+		padding: 9px 22px;
 		border-radius: 999px;
 		cursor: pointer;
-		transition: all 0.28s ease;
-		backdrop-filter: blur(6px);
+		position: relative;
+		transition: color .28s ease, border-color .28s ease, transform .28s ease, box-shadow .28s ease, background .28s ease;
 	}
 	.btn:hover {
 		border-color: var(--peacock);
 		color: var(--peacock);
 		transform: translateY(-2px);
+		box-shadow: 0 6px 16px -8px rgba(14,110,110,0.6);
 	}
+	/* active pill: peacock→indigo gradient with a marigold gold ring + glow */
 	.btn.active {
-		background: linear-gradient(135deg, var(--peacock), var(--indigo));
 		color: var(--ivory);
 		border-color: transparent;
-		box-shadow: 0 8px 20px -6px rgba(14,110,110,0.5);
+		background: linear-gradient(135deg, var(--peacock) 0%, var(--indigo) 100%);
+		box-shadow:
+			0 0 0 2px var(--marigold-l),
+			0 8px 22px -6px rgba(14,110,110,0.65);
+		transform: translateY(-1px);
+	}
+	/* a small marigold "feather-eye" dot on the active pill */
+	.btn.active::after {
+		content: "";
+		position: absolute;
+		top: 50%; right: 12px;
+		width: 6px; height: 6px;
+		transform: translateY(-50%);
+		border-radius: 50%;
+		background: var(--marigold-l);
+		box-shadow: 0 0 6px var(--marigold);
+	}
+	.btn.active { padding-right: 30px; }
+
+	/* ---------- SEARCH inside the filter bar ---------- */
+	.filter-btns {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		gap: 12px;
+		transition: opacity 0.25s ease, transform 0.25s ease;
+	}
+	/* round magnifier toggle, sits at the right end of the buttons */
+	.search-toggle {
+		flex: none;
+		width: 40px; height: 40px;
+		border-radius: 50%;
+		border: 1px solid rgba(217,179,102,0.7);
+		background: rgba(255,255,255,0.75);
+		color: var(--peacock-d);
+		cursor: pointer;
+		display: flex; align-items: center; justify-content: center;
+		transition: color .25s ease, border-color .25s ease, transform .25s ease, box-shadow .25s ease, opacity .25s ease;
+	}
+	.search-toggle:hover {
+		color: var(--peacock);
+		border-color: var(--peacock);
+		transform: translateY(-2px);
+		box-shadow: 0 6px 16px -8px rgba(14,110,110,0.6);
+	}
+	.search-toggle svg { width: 18px; height: 18px; }
+
+	/* the search overlay — sits on top of the buttons, no reflow */
+	.search-box {
+		position: absolute;
+		left: 14px; right: 14px;
+		top: 50%;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		border-radius: 999px;
+		background: rgba(255,255,255,0.92);
+		border: 1px solid rgba(217,179,102,0.7);
+		padding: 6px 8px 6px 14px;
+		/* hidden + slightly scaled until searching */
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-50%) scale(0.97);
+		transition: opacity .3s ease, transform .34s ease, visibility .34s ease;
+		pointer-events: none;
+	}
+	.search-box .search-icon {
+		flex: none; display: flex; color: var(--peacock);
+	}
+	.search-box .search-icon svg { width: 18px; height: 18px; }
+	.search-box input {
+		flex: 1 1 auto;
+		min-width: 0;
+		border: none;
+		outline: none;
+		background: transparent;
+		font-family: 'Mukta', sans-serif;
+		font-size: 15px;
+		color: var(--ink);
+		padding: 6px 2px;
+	}
+	.search-box input::placeholder { color: var(--ink-soft); opacity: 0.8; }
+	.search-clear {
+		flex: none;
+		width: 26px; height: 26px;
+		border-radius: 50%;
+		border: none;
+		background: rgba(43,33,80,0.08);
+		color: var(--indigo);
+		cursor: pointer;
+		display: flex; align-items: center; justify-content: center;
+		transition: background .2s ease, color .2s ease;
+	}
+	.search-clear:hover { background: var(--rose); color: #fff; }
+	.search-clear svg { width: 14px; height: 14px; }
+
+	/* the Search button — sits inline inside the overlay, before the X */
+	.search-go {
+		flex: none;
+		font-family: 'Marcellus', serif;
+		font-size: 14px;
+		letter-spacing: 0.06em;
+		color: var(--ivory);
+		border: none;
+		border-radius: 999px;
+		cursor: pointer;
+		background: linear-gradient(135deg, var(--peacock) 0%, var(--indigo) 100%);
+		box-shadow: 0 4px 14px -6px rgba(14,110,110,0.6);
+		white-space: nowrap;
+		padding: 8px 18px;
+		margin: 0 4px;
+		transition: box-shadow .2s ease, transform .2s ease;
+	}
+	.search-go:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 0 0 2px var(--marigold-l), 0 6px 18px -6px rgba(14,110,110,0.7);
+	}
+
+	/* ---- toggled state: fade buttons out, fade overlay in (no reflow) ---- */
+	#myBtnContainer.searching {
+		width: min(620px, 92vw);
+		max-width: 92vw;
+		transition: width .42s ease, max-width .42s ease;
+	}
+	#myBtnContainer {
+		transition: width .42s ease, max-width .42s ease;
+	}
+	#myBtnContainer.searching .filter-btns {
+		opacity: 0;
+		pointer-events: none;
+		/* collapse so the (still-present) buttons can't add height or wrap */
+		height: 0;
+		overflow: hidden;
+		margin: 0;
+	}
+	#myBtnContainer.searching .search-toggle {
+		opacity: 0;
+		pointer-events: none;
+	}
+	#myBtnContainer.searching .search-box {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(-50%) scale(1);
+		pointer-events: auto;
+	}
+	#myBtnContainer.searching::before,
+	#myBtnContainer.searching::after { opacity: 0; }
+
+	@media (max-width: 560px) {
+		#myBtnContainer { padding: 12px 16px; gap: 9px; }
+		#myBtnContainer::before, #myBtnContainer::after { display: none; }
+		.btn { font-size: 14px; padding: 8px 16px; }
+		.btn.active { padding-right: 24px; }
+		.btn.active::after { right: 9px; }
+		.search-go { font-size: 14px; }
+		#myBtnContainer.searching .search-go { padding: 9px 16px; }
 	}
 
 	/* ---------- GRID ---------- */
@@ -200,10 +387,19 @@
 		position: absolute; inset: 0;
 		display: flex; align-items: center; justify-content: center;
 		font-size: 40px; color: var(--gold-line);
-		opacity: 0; z-index: 0;
+		opacity: 0; z-index: 0; transition: opacity 0.3s ease;
 	}
 	.thumb img[data-broken="1"] { opacity: 0; }
 	.thumb img[data-broken="1"] + .zoom-badge { display: none; }
+	/* show the decorative placeholder + a label when an image is missing */
+	.thumb.no-image { cursor: default; }
+	.thumb.no-image::after { opacity: 1; }
+	.thumb.no-image .img-soon {
+		position: absolute; left: 0; right: 0; bottom: 14px;
+		text-align: center; font-family: 'Marcellus', serif;
+		font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+		color: var(--ink-soft); z-index: 1;
+	}
 
 	.zoom-badge {
 		position: absolute;
@@ -378,6 +574,70 @@
 		}
 	}
 
+	/* ---------- BACK TO TOP (devotional medallion) ---------- */
+	.to-top {
+		position: fixed;
+		left: 24px;
+		bottom: 24px;
+		z-index: 60;
+		width: 56px;
+		height: 56px;
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		/* ivory medallion with a warm marigold glow */
+		background:
+			radial-gradient(circle at 50% 38%, var(--ivory) 0 52%, var(--ivory-d) 70%, #e6dcc4 100%);
+		color: var(--peacock-d);
+		/* layered gold + peacock rings */
+		box-shadow:
+			0 0 0 1px var(--gold-line),
+			0 0 0 4px rgba(255,255,255,0.6),
+			0 0 0 5px rgba(217,179,102,0.55),
+			0 12px 26px -10px rgba(26,19,53,0.45);
+		/* hidden until the user scrolls down */
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(14px) scale(0.9);
+		transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s ease;
+	}
+	.to-top.show {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0) scale(1);
+	}
+	.to-top:hover {
+		transform: translateY(-3px) scale(1.04);
+		color: var(--indigo);
+		box-shadow:
+			0 0 0 1px var(--marigold),
+			0 0 0 4px rgba(255,255,255,0.7),
+			0 0 0 5px rgba(233,162,39,0.7),
+			0 18px 34px -10px rgba(26,19,53,0.5);
+	}
+	.to-top svg { width: 22px; height: 22px; }
+	/* slow halo, like a soft aura around the medallion */
+	.to-top::before {
+		content: "";
+		position: absolute;
+		inset: -5px;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(233,162,39,0.35), transparent 70%);
+		z-index: -1;
+		animation: tt-aura 3s ease-out infinite;
+	}
+	@keyframes tt-aura {
+		0%   { transform: scale(0.85); opacity: 0.55; }
+		100% { transform: scale(1.5);  opacity: 0; }
+	}
+	@media (max-width: 560px) {
+		.to-top { left: 16px; bottom: 16px; width: 50px; height: 50px; }
+		.to-top svg { width: 20px; height: 20px; }
+	}
+
 	/* ---------- FOOTER ---------- */
 	footer {
 		text-align: center;
@@ -416,289 +676,30 @@
 		</div>
 	</header>
 
-	<!-- FILTER -->
+	<!-- FILTER (buttons built automatically from the categories in products.js) -->
 	<div class="filter-wrap">
 		<div id="myBtnContainer">
-			<button class="btn active" onclick="filterSelection('all')">All</button>
-			<button class="btn" onclick="filterSelection('Misc')">Misc</button>
-			<button class="btn" onclick="filterSelection('Calander')">Calendar</button>
-			<button class="btn" onclick="filterSelection('Stickers')">Stickers</button>
-			<button class="btn" onclick="filterSelection('Stands')">Stands</button>
+			<div class="filter-btns" id="filterBtns"></div>
+			<button class="search-toggle" id="searchToggle" aria-label="Search products" title="Search">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+			</button>
+			<div class="search-box" id="searchBox">
+				<span class="search-icon">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+				</span>
+				<input type="text" id="searchInput" placeholder="Search by name…" autocomplete="off">
+				<button class="search-go" id="searchGo">Search</button>
+				<button class="search-clear" id="searchClear" aria-label="Clear search" title="Clear">
+					<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+				</button>
+			</div>
 		</div>
 	</div>
 
-	<!-- GRID -->
-	<div class="row">
+	<!-- GRID (cards built automatically from products.js) -->
+	<div class="row" id="productRow"></div>
 
-		<!-- Misc -->
-		<div class="column Misc">
-			<div class="content">
-				<div class="thumb" data-src="Images/Aastha_Sakhi.jpg" data-title="Aastha Sakhi with RadhaRani" data-price="Rs 220">
-					<img src="Images/Aastha_Sakhi.jpg" alt="Aastha Sakhi with RadhaRani">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Misc</span>
-					<h4>Aastha Sakhi with RadhaRani</h4>
-					<p class="price"><span class="rs">Rs</span> 220</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Misc">
-			<div class="content">
-				<div class="thumb" data-src="Images/Keychain1.jpg" data-title="Keychain RadhaKrishna" data-price="Rs 70">
-					<img src="Images/Keychain1.jpg" alt="Keychain RadhaKrishna">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Misc</span>
-					<h4>Keychain RadhaKrishna</h4>
-					<p class="price"><span class="rs">Rs</span> 70</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Misc">
-			<div class="content">
-				<div class="thumb" data-src="Images/Keychain2.jpg" data-title="Keychain PremanandJi" data-price="Rs 80">
-					<img src="Images/Keychain2.jpg" alt="Keychain PremanandJi">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Misc</span>
-					<h4>Keychain PremanandJi</h4>
-					<p class="price"><span class="rs">Rs</span> 80</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Misc">
-			<div class="content">
-				<div class="thumb" data-src="Images/Bansi.png" data-title="Flute(s)" data-price="Rs 70 (per piece)">
-					<img src="Images/Bansi.png" alt="Flute">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Misc</span>
-					<h4>Bansi (Flute)</h4>
-					<p class="price"><span class="rs">Rs</span> 70 <span class="rs" style="color:var(--ink-soft)">/ piece</span></p>
-				</div>
-			</div>
-		</div>
-		<div class="column Misc">
-			<div class="content">
-				<div class="thumb" data-src="Images/Counter40.jpg" data-title="Counter (Type 1)" data-price="Rs 40">
-					<img src="Images/Counter40.jpg" alt="Counter">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Misc</span>
-					<h4>Counter (Type 1)</h4>
-					<p class="price"><span class="rs">Rs</span> 40 </p>
-				</div>
-			</div>
-		</div>
-		<div class="column Misc">
-			<div class="content">
-				<div class="thumb" data-src="Images/Counter50.jpg" data-title="Counter (Type 2)" data-price="Rs 50">
-					<img src="Images/Counter50.jpg" alt="Counter">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Misc</span>
-					<h4>Counter (Type 2)</h4>
-					<p class="price"><span class="rs">Rs</span> 50 </p>
-				</div>
-			</div>
-		</div>
-		<div class="column Misc">
-			<div class="content">
-				<div class="thumb" data-src="Images/Counter200.jpg" data-title="Counter (Type 3)" data-price="Rs 200">
-					<img src="Images/Counter200.jpg" alt="Counter">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Misc</span>
-					<h4>Counter (Type 3)</h4>
-					<p class="price"><span class="rs">Rs</span> 200 </p>
-				</div>
-			</div>
-		</div>
-
-		<!-- Calander -->
-		<div class="column Calander">
-			<div class="content">
-				<div class="thumb" data-src="Images/Calender_HareKrishna_Cow.jpg" data-title="Calendar — HareKrishna Cow" data-price="Rs 220">
-					<img src="Images/Calender_HareKrishna_Cow.jpg" alt="Calendar HareKrishna Cow">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Calendar</span>
-					<h4>Calendar — HareKrishna Cow</h4>
-					<p class="price"><span class="rs">Rs</span> 220</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Calander">
-			<div class="content">
-				<div class="thumb" data-src="Images/Calender_Radharani.jpg" data-title="Calendar — Radharani" data-price="Rs 250">
-					<img src="Images/Calender_Radharani.jpg" alt="Calendar — Radharani">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Calendar</span>
-					<h4>Calendar — Radharani</h4>
-					<p class="price"><span class="rs">Rs</span> 250 </p>
-				</div>
-			</div>
-		</div>
-		<div class="column Calander">
-			<div class="content">
-				<div class="thumb" data-src="Images/Calander_Premanand_Big.jpg" data-title="Calendar — PremanandJi (Big)" data-price="Rs 180">
-					<img src="Images/Calander_Premanand_Big.jpg" alt="Calendar PremanandJi Big">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Calendar</span>
-					<h4>Calendar — PremanandJi (Big)</h4>
-					<p class="price"><span class="rs">Rs</span> 180</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Calander">
-			<div class="content">
-				<div class="thumb" data-src="Images/Calander_Premanand_Small.jpg" data-title="Calendar — PremanandJi (Small)" data-price="Rs 120">
-					<img src="Images/Calander_Premanand_Small.jpg" alt="Calendar PremanandJi Small">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Calendar</span>
-					<h4>Calendar — PremanandJi (Small)</h4>
-					<p class="price"><span class="rs">Rs</span> 120</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Calander">
-			<div class="content">
-				<div class="thumb" data-src="Images/RadheyKrishna_Jhula.jpg" data-title="Calendar — Radhey Krishna Jhula" data-price="Rs 120">
-					<img src="Images/RadheyKrishna_Jhula.jpg" alt="Calendar Radhey Krishna Jhula">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Calendar</span>
-					<h4>Calendar — Radhey Krishna Jhula</h4>
-					<p class="price"><span class="rs">Rs</span> 120</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Calander">
-			<div class="content">
-				<div class="thumb" data-src="Images/Calander_Raj.jpg" data-title="Calendar — Raj" data-price="Rs 100">
-					<img src="Images/Calander_Raj.jpg" alt="Calendar Raj">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Calendar</span>
-					<h4>Calendar — Raj</h4>
-					<p class="price"><span class="rs">Rs</span> 100</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Calander">
-			<div class="content">
-				<div class="thumb" data-src="Images/Calander_Rasoi.jpg" data-title="Calendar — Rasoi" data-price="Rs 100">
-					<img src="Images/Calander_Rasoi.jpg" alt="Calendar Rasoi">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Calendar</span>
-					<h4>Calendar — Rasoi</h4>
-					<p class="price"><span class="rs">Rs</span> 100</p>
-				</div>
-			</div>
-		</div>
-
-		<!-- Stickers -->
-		<div class="column Stickers">
-			<div class="content">
-				<div class="thumb" data-src="Images/Sticker_ShreeRadha.jpg" data-title="Shree Radha (Wall)" data-price="Rs 50">
-					<img src="Images/Sticker_ShreeRadha.jpg" alt="Shree Radha Wall">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Sticker</span>
-					<h4>Shree Radha (Wall)</h4>
-					<p class="price"><span class="rs">Rs</span> 50</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Stickers">
-			<div class="content">
-				<div class="thumb" data-src="Images/Sticker_ShreeRadha1.jpg" data-title="Shree Radhey — Premanand Ji (Hanging)" data-price="Rs 60">
-					<img src="Images/Sticker_ShreeRadha1.jpg" alt="Shree Radhey Premanand Ji Hanging">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Sticker</span>
-					<h4>Shree Radhey — Premanand Ji (Hanging)</h4>
-					<p class="price"><span class="rs">Rs</span> 60</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Stickers">
-			<div class="content">
-				<div class="thumb" data-src="Images/Sticker_ShreeRadha2.jpg" data-title="Shree Radhey — Radhey Krishna (Hanging)" data-price="Rs 60">
-					<img src="Images/Sticker_ShreeRadha2.jpg" alt="Shree Radhey Radhey Krishna Hanging">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Sticker</span>
-					<h4>Shree Radhey — Radhey Krishna (Hanging)</h4>
-					<p class="price"><span class="rs">Rs</span> 60</p>
-				</div>
-			</div>
-		</div>
-
-		<!-- Stands -->
-		<div class="column Stands">
-			<div class="content">
-				<div class="thumb" data-src="Images/Stand_Bansi.jpg" data-title="Stand — Bansi and Peacock" data-price="Rs 60">
-					<img src="Images/Stand_Bansi.jpg" alt="Stand Bansi and Peacock">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Stand</span>
-					<h4>Stand — Bansi and Peacock</h4>
-					<p class="price"><span class="rs">Rs</span> 60</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Stands">
-			<div class="content">
-				<div class="thumb" data-src="Images/Stand_RadheyKrishna.jpg" data-title="Stand — Radhey Krishna" data-price="Rs 60">
-					<img src="Images/Stand_RadheyKrishna.jpg" alt="Stand Radhey Krishna">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Stand</span>
-					<h4>Stand — Radhey Krishna</h4>
-					<p class="price"><span class="rs">Rs</span> 60</p>
-				</div>
-			</div>
-		</div>
-		<div class="column Stands">
-			<div class="content">
-				<div class="thumb" data-src="Images/Stand_kirtimandir.jpg" data-title="Stand — Kirti Mandir" data-price="Rs 250">
-					<img src="Images/Stand_kirtimandir.jpg" alt="Stand KirtiMandir">
-					<span class="zoom-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg></span>
-				</div>
-				<div class="card-body">
-					<span class="tag">Stand</span>
-					<h4>Stand Kirti Mandir</h4>
-					<p class="price"><span class="rs">Rs</span> 250 </p>
-				</div>
-			</div>
-		</div>
-
-	</div>
+	<p id="loadNote" style="text-align:center;font-family:'Marcellus',serif;color:var(--ink-soft);letter-spacing:0.08em;padding:40px 16px;"></p>
 
 	<footer>
 		<span class="om">ॐ</span>
@@ -712,6 +713,18 @@
 	<svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.821 9.821 0 001.519 5.26l-.999 3.648 3.97-1.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
 	<span class="wa-label">Contact on WhatsApp</span>
 </a>
+
+<!-- BACK TO TOP (devotional medallion) -->
+<button class="to-top" id="toTop" aria-label="Back to top" title="Back to top">
+	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+		<!-- upward arrow, centered -->
+		<path d="M12 17V9"/>
+		<path d="M8.2 12.2 12 8.4l3.8 3.8"/>
+		<!-- small lotus base beneath the arrow -->
+		<path d="M9 18.4c1 1 2 1 3 1s2 0 3-1" stroke="var(--marigold)" stroke-width="1.4"/>
+		<path d="M10.4 19c.5.5 1.1.6 1.6.6s1.1-.1 1.6-.6" stroke="var(--rose)" stroke-width="1.1" opacity="0.8"/>
+	</svg>
+</button>
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
@@ -728,53 +741,145 @@
 	<div class="lb-caption"><span id="lbTitle"></span><span id="lbPrice" style="color:var(--marigold-l)"></span></div>
 </div>
 
+<!-- 1) Load the product list. Editing products.js is all that's needed. -->
+<script src="products.js"></script>
+
+<!-- 2) Build the page from that list. (No need to touch this part.) -->
 <script>
-/* ---------- Filtering ---------- */
-function filterSelection(c) {
-	var x = document.getElementsByClassName("column");
-	if (c === "all") c = "";
-	for (var i = 0; i < x.length; i++) {
-		x[i].classList.remove("show");
-		if (x[i].className.indexOf(c) > -1) x[i].classList.add("show");
+/* =====================================================================
+   Renders the cards, filter buttons, and lightbox from the PRODUCTS
+   list defined in products.js. You normally never need to edit this.
+   ===================================================================== */
+
+/* Map a Category to the CSS class used for grouping/filtering. */
+function categoryClass(cat) {
+	var map = { "Calendar": "Calander", "Sticker": "Stickers", "Stand": "Stands", "Misc": "Misc" };
+	return map[cat] || String(cat || "").replace(/\s+/g, "");
+}
+/* Friendly label for the filter button + the small card tag. */
+function categoryLabel(cls) {
+	var map = { "Calander": "Calendar", "Stickers": "Stickers", "Stands": "Stands", "Misc": "Misc" };
+	return map[cls] || cls;
+}
+
+var zoomSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4M11 8v6M8 11h6"/></svg>';
+
+function esc(s) {
+	return String(s == null ? "" : s)
+		.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+/* "₹ 220" -> styled "Rs 220";  "₹ 70 / piece" -> "Rs 70 / piece" */
+function renderPrice(price) {
+	var rest = String(price || "").trim().replace(/^(₹|Rs\.?|INR)\s*/i, "").trim();
+	var main = rest, qualifier = "";
+	var slash = rest.indexOf("/");
+	if (slash > -1) { main = rest.slice(0, slash).trim(); qualifier = rest.slice(slash + 1).trim(); }
+	var html = '<span class="rs">Rs</span> ' + esc(main);
+	if (qualifier) html += ' <span class="rs" style="color:var(--ink-soft)">/ ' + esc(qualifier) + '</span>';
+	return html;
+}
+function plainPrice(price) {
+	var rest = String(price || "").trim().replace(/^(₹|Rs\.?|INR)\s*/i, "").trim();
+	return rest ? "Rs " + rest : "";
+}
+
+function buildCard(p) {
+	var cls = categoryClass(p.Category);
+	var img = p.IMG_Source || "";
+	var title = p.Name || "";
+
+	var col = document.createElement("div");
+	col.className = "column " + cls;
+	col.setAttribute("data-name", title);
+	col.innerHTML =
+		'<div class="content">' +
+			'<div class="thumb" data-src="' + esc(img) + '" data-title="' + esc(title) + '" data-price="' + esc(plainPrice(p.Price)) + '">' +
+				'<img src="' + esc(img) + '" alt="' + esc(title) + '">' +
+				'<span class="zoom-badge">' + zoomSVG + '</span>' +
+			'</div>' +
+			'<div class="card-body">' +
+				'<span class="tag">' + esc(categoryLabel(cls)) + '</span>' +
+				'<h4>' + esc(title) + '</h4>' +
+				'<p class="price">' + renderPrice(p.Price) + '</p>' +
+			'</div>' +
+		'</div>';
+	return col;
+}
+
+function buildFilters(categories) {
+	var container = document.getElementById("filterBtns");
+	container.innerHTML = "";
+	function addBtn(value, text, active) {
+		var b = document.createElement("button");
+		b.className = "btn" + (active ? " active" : "");
+		b.textContent = text;
+		b.addEventListener("click", function () {
+			var cur = container.querySelector(".btn.active");
+			if (cur) cur.classList.remove("active");
+			b.classList.add("active");
+			activeCategory = value;
+			applyFilters();
+		});
+		container.appendChild(b);
+	}
+	addBtn("all", "All", true);
+	categories.forEach(function (cls) { addBtn(cls, categoryLabel(cls)); });
+}
+
+/* ---------- Filtering (category + text search combined) ---------- */
+var activeCategory = "all";
+var searchTerm = "";
+
+function applyFilters() {
+	var cols = document.getElementsByClassName("column");
+	var cat = activeCategory === "all" ? "" : activeCategory;
+	var term = searchTerm.trim().toLowerCase();
+	for (var i = 0; i < cols.length; i++) {
+		var col = cols[i];
+		var matchCat = col.className.indexOf(cat) > -1;
+		var name = (col.getAttribute("data-name") || "").toLowerCase();
+		var matchText = !term || name.indexOf(term) > -1;
+		if (matchCat && matchText) col.classList.add("show");
+		else col.classList.remove("show");
 	}
 	buildVisibleList();
-}
-filterSelection("all");
 
-/* Active button highlight */
-var btnContainer = document.getElementById("myBtnContainer");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-	btns[i].addEventListener("click", function () {
-		var current = document.getElementsByClassName("active");
-		if (current[0]) current[0].className = current[0].className.replace(" active", "");
-		this.className += " active";
-	});
+	var note = document.getElementById("loadNote");
+	if (term && !document.querySelector(".column.show")) {
+		note.textContent = "No products match your search.";
+	} else if (note.textContent.indexOf("No products match") === 0) {
+		note.textContent = "";
+	}
 }
 
-/* ---------- Broken-image fallback ---------- */
-document.querySelectorAll(".thumb img").forEach(function (img) {
-	img.addEventListener("error", function () { img.setAttribute("data-broken", "1"); });
-});
+/* kept for compatibility — selecting a category */
+function filterSelection(c) {
+	activeCategory = c;
+	applyFilters();
+}
 
 /* ---------- Lightbox ---------- */
 var lb = document.getElementById("lightbox");
 var lbImg = document.getElementById("lbImg");
 var lbTitle = document.getElementById("lbTitle");
 var lbPrice = document.getElementById("lbPrice");
-var visible = [];   // currently shown thumbs
+var visible = [];
 var current = 0;
 
 function buildVisibleList() {
 	visible = Array.prototype.filter.call(
 		document.querySelectorAll(".column .thumb"),
-		function (t) { return t.closest(".column").classList.contains("show"); }
+		function (t) {
+			return t.closest(".column").classList.contains("show") &&
+				!t.classList.contains("no-image") && t.dataset.src;
+		}
 	);
 }
-
 function openLightbox(thumb) {
 	buildVisibleList();
 	current = visible.indexOf(thumb);
+	if (current < 0) return;
 	showCurrent();
 	lb.classList.add("open");
 	document.body.style.overflow = "hidden";
@@ -796,10 +901,6 @@ function step(d) {
 	current = (current + d + visible.length) % visible.length;
 	showCurrent();
 }
-
-document.querySelectorAll(".thumb").forEach(function (t) {
-	t.addEventListener("click", function () { openLightbox(t); });
-});
 document.getElementById("lbClose").addEventListener("click", closeLightbox);
 document.getElementById("lbPrev").addEventListener("click", function () { step(-1); });
 document.getElementById("lbNext").addEventListener("click", function () { step(1); });
@@ -810,6 +911,119 @@ document.addEventListener("keydown", function (e) {
 	if (e.key === "ArrowRight") step(1);
 	if (e.key === "ArrowLeft") step(-1);
 });
+
+/* ---------- Build everything ---------- */
+function render(products) {
+	var row = document.getElementById("productRow");
+	row.innerHTML = "";
+
+	var seen = [];
+	products.forEach(function (p) {
+		var cls = categoryClass(p.Category);
+		if (seen.indexOf(cls) === -1) seen.push(cls);
+		row.appendChild(buildCard(p));
+	});
+
+	buildFilters(seen);
+
+	/* Missing image -> show the decorative placeholder once (no retry loop). */
+	row.querySelectorAll(".thumb img").forEach(function (img) {
+		img.addEventListener("error", function () {
+			img.setAttribute("data-broken", "1");
+			var thumb = img.closest(".thumb");
+			if (thumb && !thumb.classList.contains("no-image")) {
+				thumb.classList.add("no-image");
+				thumb.removeAttribute("data-src");
+				var label = document.createElement("span");
+				label.className = "img-soon";
+				label.textContent = "Image coming soon";
+				thumb.appendChild(label);
+			}
+		});
+	});
+
+	/* Click a thumb to open the lightbox (skips placeholder cards). */
+	row.querySelectorAll(".thumb").forEach(function (t) {
+		t.addEventListener("click", function () {
+			if (t.classList.contains("no-image") || !t.dataset.src) return;
+			openLightbox(t);
+		});
+	});
+
+	filterSelection("all");
+	document.getElementById("loadNote").textContent = "";
+}
+
+(function start() {
+	var note = document.getElementById("loadNote");
+	if (typeof PRODUCTS === "undefined" || !PRODUCTS || !PRODUCTS.length) {
+		note.innerHTML = "No products found. Make sure <b>products.js</b> is in the same folder and starts with <code>var PRODUCTS = [</code>.";
+		return;
+	}
+	render(PRODUCTS);
+})();
+
+/* ---------- Back to top ---------- */
+(function backToTop() {
+	var btn = document.getElementById("toTop");
+	if (!btn) return;
+	function onScroll() {
+		if (window.pageYOffset > 320) btn.classList.add("show");
+		else btn.classList.remove("show");
+	}
+	window.addEventListener("scroll", onScroll, { passive: true });
+	onScroll();
+	btn.addEventListener("click", function () {
+		window.scrollTo({ top: 0, behavior: "smooth" });
+	});
+})();
+
+/* ---------- Search (expands over the filter bar) ---------- */
+(function searchBar() {
+	var wrap   = document.getElementById("myBtnContainer");
+	var toggle = document.getElementById("searchToggle");
+	var box    = document.getElementById("searchBox");
+	var input  = document.getElementById("searchInput");
+	var clear  = document.getElementById("searchClear");
+	var go      = document.getElementById("searchGo");
+	if (!wrap || !toggle || !input) return;
+
+	function openSearch() {
+		/* freeze the bar's current height so collapsing the buttons can't shrink it */
+		wrap.style.height = wrap.offsetHeight + "px";
+		wrap.classList.add("searching");
+		setTimeout(function () { input.focus(); }, 180);
+	}
+	function closeSearch() {
+		wrap.classList.remove("searching");
+		wrap.style.height = "";
+		input.value = "";
+		searchTerm = "";
+		applyFilters();
+	}
+	function runSearch() {
+		searchTerm = input.value;
+		applyFilters();
+	}
+
+	toggle.addEventListener("click", function (e) { e.stopPropagation(); openSearch(); });
+	clear.addEventListener("click", function (e) { e.stopPropagation(); closeSearch(); });
+	go.addEventListener("click", function (e) { e.stopPropagation(); runSearch(); });
+
+	/* live filtering as you type */
+	input.addEventListener("input", runSearch);
+	input.addEventListener("keydown", function (e) {
+		if (e.key === "Enter") runSearch();
+		if (e.key === "Escape") closeSearch();
+	});
+
+	/* click outside the bar collapses it back to buttons */
+	document.addEventListener("click", function (e) {
+		if (wrap.classList.contains("searching") && !wrap.contains(e.target)) {
+			closeSearch();
+		}
+	});
+})();
 </script>
 
 </body>
