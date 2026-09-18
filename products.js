@@ -19,6 +19,22 @@
 
 var PRODUCTS = [
   {
+    "Name": "Radha-Krishna Cycle",
+    "Category": "Magnet",
+    "IMG_Source": "Images/RadhaKrishna_Cycle.jpg",
+    "Price": "₹ 50",
+    "Size": "8 * 10 cms",
+    "Description": "Radha Krishna riding cycle fridge Magnet"
+  }
+  {
+    "Name": "Mix Magnets of Krishna, Radha ",
+    "Category": "Magnet",
+    "IMG_Source": "Images/Magnets_mix.jpg",
+    "Price": "₹ 50 / piece 	",
+    "Size": "8 * 10 cms",
+    "Description": "Radha Krishna riding cycle fridge Magnet"
+  }
+  {
     "Name": "Aastha Sakhi with RadhaRani",
     "Category": "Misc",
     "IMG_Source": "Images/Aastha_Sakhi.jpg",
