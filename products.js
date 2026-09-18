@@ -25,7 +25,7 @@ var PRODUCTS = [
     "Price": "₹ 50",
     "Size": "8 * 10 cms",
     "Description": "Radha Krishna riding cycle fridge Magnet"
-  }
+  },
   {
     "Name": "Mix Magnets of Krishna, Radha ",
     "Category": "Magnet",
@@ -33,7 +33,7 @@ var PRODUCTS = [
     "Price": "₹ 50 / piece 	",
     "Size": "8 * 10 cms",
     "Description": "Radha Krishna riding cycle fridge Magnet"
-  }
+  },
   {
     "Name": "Aastha Sakhi with RadhaRani",
     "Category": "Misc",
