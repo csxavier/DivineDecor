@@ -261,7 +261,7 @@ var PRODUCTS = [
   {
     "Name": "Stand - RadhaKrishna Jula",
     "Category": "Stand",
-    "IMG_Source": "Images/Stand_RadhaKrishnaJhula.png",
+    "IMG_Source": "Images/Stand_RadhaKrishnaJhula.jpg",
     "Price": "₹ 100",
     "Size": "Standard",
     "Description": "Decorative stand with Radha and Krishna on Jhula."
