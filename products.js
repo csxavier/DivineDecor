@@ -211,6 +211,14 @@ var PRODUCTS = [
     "Description": "Calander Premanand Aashirwad."
   },
   {
+    "Name": "Hare Krishna Hare Rama Long",
+    "Category": "Sticker",
+    "IMG_Source": "Images/Sticker_HK-HR_Long.png",
+    "Price": "₹ 150",
+    "Size": "Standard",
+    "Description": "Long Hare Krishna Hare Ram Stikcer wtih Radha Krishna."
+  },
+  {
     "Name": "Shree Radha (Wall)",
     "Category": "Sticker",
     "IMG_Source": "Images/Sticker_ShreeRadha.jpg",
@@ -230,6 +238,7 @@ var PRODUCTS = [
     "Name": "Radhe Radhe Jhula (Wall)",
     "Category": "Sticker",
     "IMG_Source": "Images/Sticker_Jhula.jpg",
+	"Images": ["Images/Sticker_Jhula_1.png", "Images/Sticker_Jhula_2.png", "Images/Sticker _RadheRadhe_Bansi.jpg"],
     "Price": "₹ 100",
     "Size": "Standard",
     "Description": "Wall sticker of Shree Radha."
@@ -265,6 +274,15 @@ var PRODUCTS = [
     "Price": "₹ 100",
     "Size": "Standard",
     "Description": "Decorative stand with Radha and Krishna on Jhula."
+  },
+  {
+    "Name": "Stand - HK-HR Duck Boat",
+    "Category": "Stand",
+    "IMG_Source": "Images/HK-HR_Duck_Boat_1.png",
+	"Images": ["Images/HK-HR_Duck_Boat_2.png"], 
+    "Price": "₹ 60",
+    "Size": "Standard",
+    "Description": "Decorative stand with Radha Krishna, Ducks and Mantra"
   },
   {
     "Name": "Stand - Bansi and Peacock",
