@@ -63,7 +63,7 @@ var PRODUCTS = [
   
   {"Name":"ShubhLabh With Ganesh (Vertical)","Category":"Diwali","IMG_Source":"Images/ShubhLabh_long_160.png","Price":"₹ 160","Size":"Standard","Description":"Shubh Labh With Ganesh - Small"},
   {"Name":"ShubhLabh Elephant","Category":"Diwali","IMG_Source":"Images/ShubhLabh_Elephant_180.png","Price":"₹ 180","Size":"Standard","Description":"Shubh Labh Elephant"},
-  {"Name":"ShubhLabh Elephant With GaneshJi","Category":"Diwali","IMG_Source":"Images/ShubhLabh_ElephantWGaneshJi_180.png","Price":"₹ 60","Size":"Standard","Description":"ShubhLabh Elephant With GaneshJi"},
+  {"Name":"ShubhLabh Elephant With GaneshJi","Category":"Diwali","IMG_Source":"Images/ShubhLabh_ElephantWGaneshJi_180.png","Price":"₹ 160","Size":"Standard","Description":"ShubhLabh Elephant With GaneshJi"},
   {"Name":"ShubhLabh Peacock","Category":"Diwali","IMG_Source":"Images/ShubhLabh_Peacock_160.png","Price":"₹ 160","Size":"Standard","Description":"ShubhLabh Peacock"},
   {"Name":"Mix Toran","Category":"Diwali","IMG_Source":"Images/Mix_Toran.jpg","Price":"Varies from ₹ 250+","Size":"Standard","Description":"Different Style of Torans starting from ₹ 250"},
   {"Name":"Toran Simple","Category":"Diwali","IMG_Source":"Images/Toran_Simple_150.png","Price":"₹ 150","Size":"Standard","Description":"Simple Toran with Mirrors"},
