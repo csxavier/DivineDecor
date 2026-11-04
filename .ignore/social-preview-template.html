@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+	Source for Images/social-preview.jpg — the link-preview thumbnail shown by
+	WhatsApp / Facebook / Instagram / X / LinkedIn / Telegram etc. when someone
+	shares the store link (wired up via the og:image / twitter:image tags in
+	RadheyKrishna.html).
+
+	Regenerate (macOS, from the repo root):
+	  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless \
+	    --hide-scrollbars --window-size=1200,630 \
+	    --screenshot=/tmp/social-preview.png .ignore/social-preview-template.html
+	  sips -s format jpeg -s formatOptions 82 /tmp/social-preview.png --out Images/social-preview.jpg
+
+	Keep the output 1200x630 and well under 300 KB (WhatsApp silently drops
+	larger images). Keep the important content in the centre: WhatsApp's small
+	preview crops the image to a centred square.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Mukta:wght@400;500&display=swap" rel="stylesheet">
+<style>
+	* { box-sizing: border-box; margin: 0; padding: 0; }
+	html, body { width: 1200px; height: 630px; overflow: hidden; }
+	body {
+		background:
+			radial-gradient(circle at 12% 10%, rgba(233,162,39,0.22), transparent 42%),
+			radial-gradient(circle at 88% 6%, rgba(14,110,110,0.20), transparent 44%),
+			radial-gradient(circle at 50% 120%, rgba(194,90,114,0.18), transparent 50%),
+			#faf6ee;
+		color: #211a3a;
+		font-family: 'Mukta', 'Helvetica Neue', Arial, sans-serif;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-top: 34px;
+		position: relative;
+	}
+	body::before {
+		content: "";
+		position: absolute; inset: 16px;
+		border: 2px solid #d9b366;
+		border-radius: 18px;
+		pointer-events: none;
+	}
+	.eyebrow {
+		letter-spacing: 0.42em;
+		text-transform: uppercase;
+		font-size: 17px;
+		font-weight: 500;
+		color: #0e6e6e;
+	}
+	h1 {
+		font-family: 'Cormorant Garamond', Georgia, serif;
+		font-weight: 600;
+		font-size: 66px;
+		line-height: 1.05;
+		color: #2b2150;
+		margin-top: 6px;
+	}
+	h1 .amp { font-style: italic; font-weight: 400; color: #e9a227; }
+	.sub {
+		font-family: 'Cormorant Garamond', Georgia, serif;
+		font-style: italic;
+		font-size: 25px;
+		color: #5a5273;
+		margin-top: 2px;
+	}
+	.row {
+		display: flex;
+		align-items: flex-end;
+		gap: 26px;
+		margin-top: 22px;
+	}
+	.row img {
+		width: 250px; height: 330px;
+		object-fit: cover;
+		border-radius: 125px 125px 14px 14px;   /* temple-arch frame */
+		border: 4px solid #fff;
+		box-shadow: 0 10px 28px rgba(26,19,53,0.22), 0 0 0 2px #d9b366;
+	}
+	.row img.mid { width: 290px; height: 372px; border-radius: 145px 145px 14px 14px; }
+</style>
+</head>
+<body>
+	<p class="eyebrow">Hare Krishna · Radhey Radhey</p>
+	<h1>Radhey <span class="amp">&amp;</span> Krishna Decoratives</h1>
+	<p class="sub">Devotional Décor · Handcrafted with Bhakti</p>
+	<div class="row">
+		<img src="../Images/Stand_Peacock.jpg" alt="">
+		<img class="mid" src="../Images/RadheyKrishna_Jhula.jpg" alt="">
+		<img src="../Images/PinkShreeRadha.jpg" alt="">
+	</div>
+</body>
+</html>
+
